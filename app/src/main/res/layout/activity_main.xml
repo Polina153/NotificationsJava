@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_view"
+    tools:context=".MainActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <Button
+        android:id="@+id/button_toast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Toast"
+        />
+
+    <Button
+        android:id="@+id/button_snack_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="SnackBar"
+        />
+
+    <Button
+        android:id="@+id/button_snack_bar_with_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="SnackBar with action"
+        />
+
+    <Button
+        android:id="@+id/button_alert_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Alert Dialog"
+        />
+
+    <Button
+        android:id="@+id/button_alert_dialog_with_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Alert Dialog with custom view"
+        />
+
+    <Button
+        android:id="@+id/button_dialog_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Dialog Fragment"
+        />
+
+    <Button
+        android:id="@+id/button_dialog_fragment_custom_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Dialog Fragment with custom view"
+        />
+
+    <Button
+        android:id="@+id/button_bottom_sheet_dialog_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Bottom Sheet Dialog Fragment"
+        />
+
+    <Button
+        android:id="@+id/button_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Notification"
+        />
+</LinearLayout>
