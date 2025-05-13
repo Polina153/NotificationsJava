@@ -1,9 +1,9 @@
 package com.example.notificationsjava;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,25 +39,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        //Способ №1: Toast
-        findViewById(R.id.button_toast).setOnClickListener(view -> showToast());
-
-        //Способ №2: SnackBar
-        findViewById(R.id.button_snack_bar).setOnClickListener(view -> showSnackBar());
-        findViewById(R.id.button_snack_bar_with_action).setOnClickListener(view -> showSnackBarWithAction());
-
-        //Способ №3: Dialog
-        findViewById(R.id.button_alert_dialog).setOnClickListener(view -> showAlertDialog());
-        findViewById(R.id.button_alert_dialog_with_view).setOnClickListener(view -> showAlertDialogWithCustomView());
-        findViewById(R.id.button_dialog_fragment).setOnClickListener(view -> showDialogFragment());
-        findViewById(R.id.button_dialog_fragment_custom_view).setOnClickListener(view -> showDialogFragmentWithCustomView());
-
-        //Способ №4: BottomSheet
-        findViewById(R.id.button_bottom_sheet_dialog_fragment).setOnClickListener(view -> showBottomSheetDialogFragment());
-
-        //Способ №5: Notification
-        findViewById(R.id.button_notification).setOnClickListener(view -> showNotification());
+        initialize();
     }
 
     void onDialogResult(String text) {
@@ -161,10 +144,28 @@ public class MainActivity extends AppCompatActivity {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                ActivityCompat.requestPermissions(
+                        this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                        NOTIFICATION_ID); // константа вашего выбора
+            }
             return;
         }
-        //NotificationManagerCompat.from(this).notify(42, builder.build());
         NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, builder.build());
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == NOTIFICATION_ID && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // Пользователь разрешил показывать уведомления
+            showNotification(); // Можно показать уведомление повторно
+        } else {
+            // Пользователь отказался давать разрешение
+            Toast.makeText(this, "Разрешение на уведомления не предоставлено.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -178,5 +179,26 @@ public class MainActivity extends AppCompatActivity {
         // Регистрируем канал в системе
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
+    }
+
+    private void initialize() {
+        //Способ №1: Toast
+        findViewById(R.id.button_toast).setOnClickListener(view -> showToast());
+
+        //Способ №2: SnackBar
+        findViewById(R.id.button_snack_bar).setOnClickListener(view -> showSnackBar());
+        findViewById(R.id.button_snack_bar_with_action).setOnClickListener(view -> showSnackBarWithAction());
+
+        //Способ №3: Dialog
+        findViewById(R.id.button_alert_dialog).setOnClickListener(view -> showAlertDialog());
+        findViewById(R.id.button_alert_dialog_with_view).setOnClickListener(view -> showAlertDialogWithCustomView());
+        findViewById(R.id.button_dialog_fragment).setOnClickListener(view -> showDialogFragment());
+        findViewById(R.id.button_dialog_fragment_custom_view).setOnClickListener(view -> showDialogFragmentWithCustomView());
+
+        //Способ №4: BottomSheet
+        findViewById(R.id.button_bottom_sheet_dialog_fragment).setOnClickListener(view -> showBottomSheetDialogFragment());
+
+        //Способ №5: Notification
+        findViewById(R.id.button_notification).setOnClickListener(view -> showNotification());
     }
 }
