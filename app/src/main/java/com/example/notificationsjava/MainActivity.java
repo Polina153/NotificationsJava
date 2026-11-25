@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showToast() {
-        Toast.makeText(this, "Toast", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Toast", Toast.LENGTH_LONG).show();
     }
 
     private void showSnackBar() {
@@ -55,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSnackBarWithAction() {
-        Snackbar.make(findViewById(R.id.container_view), "SnackBar with Action", Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(
+                        findViewById(R.id.container_view),
+                        "SnackBar with Action",
+                        Snackbar.LENGTH_INDEFINITE)
                 .setAction("Push me", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle("AlertDialog!")
                 .setMessage("Your message here")
                 // Можно указать и пиктограмму
-                //.setIcon(R.mipmap.ic_launcher_round)
+                .setIcon(R.mipmap.ic_launcher_round)
                 // Из этого окна нельзя выйти кнопкой Back
                 //.setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showAlertDialogWithCustomView() {
         final View customView = getLayoutInflater().inflate(R.layout.custom_view, null);
-        customView.findViewById(R.id.button_custom_view).setOnClickListener(view -> showToast());
+        customView.findViewById(R.id.button_custom_view).setOnClickListener(view ->   showToast());
 
         new AlertDialog.Builder(this)
                 .setTitle("AlertDialog with custom view")
